@@ -23,7 +23,13 @@ class MultisitePlugin implements MiddlewarePlugin {
       // This function determines if a route should be excluded from site resolution.
       // Certain paths are ignored by default (e.g. files and Next.js API routes), but you may wish to exclude more.
       // This is an important performance consideration since Next.js Edge middleware runs on every request.
-      excludeRoute: () => false,
+      excludeRoute: (pathname: string) => {
+        if(pathname.endsWith("/TestPage"))
+        {
+          return true;
+        }
+      return false;
+      },
       // Site resolver implementation
       siteResolver,
       // This function allows resolving site from sc_site cookie, which could be useful in case of Vercel preview URLs. Accepts NextRequest.
